@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Execution Planner - Daily Manpower Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #2c3e50;
+        }
+
+        header h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .month-nav button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        .month-nav button:hover {
+            background: #2980b9;
+        }
+
+        .month-nav h2 {
+            color: #2c3e50;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #229954;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px;
+            border: 1px solid #bdc3c7;
+        }
+
+        .calendar {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1400px;
+        }
+
+        th, td {
+            border: 1px solid #bdc3c7;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .technician-name {
+            background: #ecf0f1;
+            font-weight: 600;
+            text-align: left;
+            padding-left: 15px;
+            min-width: 150px;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+        }
+
+        .role-header {
+            background: #2c3e50;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 15px;
+            position: sticky;
+            left: 0;
+            z-index: 6;
+        }
+
+        .day-cell {
+            min-width: 35px;
+            cursor: pointer;
+            transition: background 0.2s;
+            position: relative;
+            height: 60px;
+            vertical-align: top;
+            padding: 4px;
+        }
+
+        .day-cell:hover {
+            background: #f8f9fa;
+        }
+
+        .day-header {
+            font-size: 0.75em;
+        }
+
+        .weekend {
+            background: #ffe6e6;
+        }
+
+        .today {
+            background: #fff3cd;
+            font-weight: bold;
+        }
+
+        .assignment {
+            font-size: 0.75em;
+            margin: 2px 0;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .shift-regular {
+            background: #3498db;
+            color: white;
+        }
+
+        .shift-overtime {
+            background: #e67e22;
+            color: white;
+        }
+
+        .shift-night {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .rest-day {
+            background: #e74c3c;
+            color: white;
+            pointer-events: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .modal-header h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn-save {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .site-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .site-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin: 5px 0;
+            background: #ecf0f1;
+            border-radius: 3px;
+        }
+
+        .site-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin-left: 5px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fadbd8;
+            color: #922b21;
+            border: 1px solid #e74c3c;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏗️ Site Execution Planner</h1>
+            <p>Daily Manpower Management & Scheduling</p>
+        </header>
+
+        <div id="alert" class="alert"></div>
+
+        <div class="controls">
+            <div class="month-nav">
+                <button onclick="previousMonth()">◀ Previous</button>
+                <h2 id="currentMonth"></h2>
+                <button onclick="nextMonth()">Next ▶</button>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="clearAllData()">Clear All Data</button>
+                <button class="btn btn-primary" onclick="exportData()">Export Schedule</button>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color shift-regular"></div>
+                <span>Regular Shift (8AM-6PM)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color shift-overtime"></div>
+                <span>Overtime</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color shift-night"></div>
+                <span>Night Shift (continues till 5AM)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color rest-day"></div>
+                <span>Rest Day (Auto-blocked)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color weekend"></div>
+                <span>Weekend</span>
+            </div>
+        </div>
+
+        <div class="calendar">
+            <table id="calendarTable"></table>
+        </div>
+    </div>
+
+    <!-- Assignment Modal -->
+    <div id="assignmentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Assign Technician</h3>
+                <p id="modalInfo"></p>
+            </div>
+            
+            <div class="form-group">
+                <label>Site Name *</label>
+                <input type="text" id="siteName" placeholder="Enter site name">
+            </div>
+
+            <div class="form-group">
+                <label>Shift Type *</label>
+                <select id="shiftType">
+                    <option value="regular">Regular Shift (8AM - 6PM)</option>
+                    <option value="overtime">Overtime (8AM - 6PM + Extra)</option>
+                    <option value="night">Night Shift (8AM - 5AM next day)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Notes (Optional)</label>
+                <input type="text" id="notes" placeholder="Any additional notes">
+            </div>
+
+            <div id="existingAssignments" class="site-list" style="display: none;">
+                <strong>Existing Assignments:</strong>
+                <div id="assignmentsList"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn-save" onclick="saveAssignment()">Save Assignment</button>
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Structure
+        const technicians = {
+            'Supervisor': ['Kulwinder Singh'],
+            'Engineer': ['Muthu', 'Ghanshyam', 'Akshay', 'Manish Pandey'],
+            'Electrical Technician': [
+                'Shanmugam', 'Anandu', 'Anoop', 'Manoj', 'Surender', 
+                'Samal', 'Vijay Yadav', 'Amit', 'Alok', 'Kalandi', 
+                'Velmurugan', 'Santanu', 'Abhilash', 'Ramesh', 'Tilak', 
+                'Akash', 'Darshan Paji', 'Ganesh Veerkoti', 'Ganesh Vijay', 'Naresh'
+            ]
+        };
+
+        let currentDate = new Date();
+        let assignments = {};
+        let currentEditingCell = null;
+
+        // Load saved data
+        function loadData() {
+            const saved = localStorage.getItem('siteExecutionPlanner');
+            if (saved) {
+                assignments = JSON.parse(saved);
+            }
+        }
+
+        // Save data
+        function saveData() {
+            localStorage.setItem('siteExecutionPlanner', JSON.stringify(assignments));
+        }
+
+        // Get assignment key
+        function getAssignmentKey(technicianName, date) {
+            return `${technicianName}_${date.toISOString().split('T')[0]}`;
+        }
+
+        // Check if technician is on rest
+        function isOnRest(technicianName, date) {
+            const prevDate = new Date(date);
+            prevDate.setDate(prevDate.getDate() - 1);
+            const prevKey = getAssignmentKey(technicianName, prevDate);
+            
+            if (assignments[prevKey]) {
+                const prevAssignments = Array.isArray(assignments[prevKey]) ? assignments[prevKey] : [assignments[prevKey]];
+                return prevAssignments.some(a => a.shiftType === 'night');
+            }
+            return false;
+        }
+
+        // Render calendar
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('currentMonth').textContent = 
+                currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+
+            let tableHTML = '<thead><tr><th class="role-header">Role / Technician</th>';
+            
+            // Day headers
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                const isToday = date.toDateString() === new Date().toDateString();
+                
+                let className = 'day-header';
+                if (isWeekend) className += ' weekend';
+                if (isToday) className += ' today';
+                
+                tableHTML += `<th class="${className}">${day}<br>${dayName}</th>`;
+            }
+            tableHTML += '</tr></thead><tbody>';
+
+            // Render each role group
+            for (const [role, techList] of Object.entries(technicians)) {
+                tableHTML += `<tr><td class="role-header" colspan="${daysInMonth + 1}">${role}</td></tr>`;
+                
+                techList.forEach(techName => {
+                    tableHTML += `<tr><td class="technician-name">${techName}</td>`;
+                    
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        const date = new Date(year, month, day);
+                        const key = getAssignmentKey(techName, date);
+                        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                        const isToday = date.toDateString() === new Date().toDateString();
+                        const onRest = isOnRest(techName, date);
+                        
+                        let className = 'day-cell';
+                        if (isWeekend) className += ' weekend';
+                        if (isToday) className += ' today';
+                        
+                        let cellContent = '';
+                        
+                        if (onRest) {
+                            cellContent = '<div class="assignment rest-day">REST</div>';
+                        } else if (assignments[key]) {
+                            const dayAssignments = Array.isArray(assignments[key]) ? assignments[key] : [assignments[key]];
+                            dayAssignments.forEach(assignment => {
+                                cellContent += `<div class="assignment shift-${assignment.shiftType}" 
+                                    title="${assignment.siteName} - ${assignment.shiftType}">${assignment.siteName}</div>`;
+                            });
+                        }
+                        
+                        tableHTML += `<td class="${className}" 
+                            onclick="openAssignmentModal('${techName}', '${date.toISOString()}', ${onRest})"
+                            data-tech="${techName}" data-date="${date.toISOString()}">${cellContent}</td>`;
+                    }
+                    tableHTML += '</tr>';
+                });
+            }
+
+            tableHTML += '</tbody>';
+            document.getElementById('calendarTable').innerHTML = tableHTML;
+        }
+
+        // Open assignment modal
+        function openAssignmentModal(technicianName, dateISO, onRest) {
+            if (onRest) {
+                showAlert('This technician is on rest day after night shift', 'error');
+                return;
+            }
+
+            const date = new Date(dateISO);
+            currentEditingCell = { technicianName, date };
+            
+            document.getElementById('modalInfo').textContent = 
+                `${technicianName} - ${date.toLocaleDateString('en-US', { 
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+                })}`;
+            
+            // Reset form
+            document.getElementById('siteName').value = '';
+            document.getElementById('shiftType').value = 'regular';
+            document.getElementById('notes').value = '';
+            
+            // Show existing assignments
+            const key = getAssignmentKey(technicianName, date);
+            if (assignments[key]) {
+                const dayAssignments = Array.isArray(assignments[key]) ? assignments[key] : [assignments[key]];
+                let listHTML = '';
+                dayAssignments.forEach((assignment, index) => {
+                    const shiftBadge = `<span class="site-badge shift-${assignment.shiftType}">${assignment.shiftType}</span>`;
+                    listHTML += `<div class="site-item">
+                        <span>${assignment.siteName} ${shiftBadge}</span>
+                        <button class="btn btn-delete" style="padding: 5px 10px; font-size: 0.8em" 
+                            onclick="deleteAssignment(${index})">Delete</button>
+                    </div>`;
+                });
+                document.getElementById('assignmentsList').innerHTML = listHTML;
+                document.getElementById('existingAssignments').style.display = 'block';
+            } else {
+                document.getElementById('existingAssignments').style.display = 'none';
+            }
+            
+            document.getElementById('assignmentModal').style.display = 'flex';
+        }
+
+        // Save assignment
+        function saveAssignment() {
+            const siteName = document.getElementById('siteName').value.trim();
+            const shiftType = document.getElementById('shiftType').value;
+            const notes = document.getElementById('notes').value.trim();
+            
+            if (!siteName) {
+                showAlert('Please enter a site name', 'error');
+                return;
+            }
+            
+            const { technicianName, date } = currentEditingCell;
+            const key = getAssignmentKey(technicianName, date);
+            
+            const newAssignment = {
+                siteName,
+                shiftType,
+                notes,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Support multiple sites per day
+            if (!assignments[key]) {
+                assignments[key] = [];
+            } else if (!Array.isArray(assignments[key])) {
+                assignments[key] = [assignments[key]];
+            }
+            
+            assignments[key].push(newAssignment);
+            
+            saveData();
+            renderCalendar();
+            closeModal();
+            showAlert('Assignment saved successfully!', 'success');
+        }
+
+        // Delete assignment
+        function deleteAssignment(index) {
+            const { technicianName, date } = currentEditingCell;
+            const key = getAssignmentKey(technicianName, date);
+            
+            if (assignments[key]) {
+                const dayAssignments = Array.isArray(assignments[key]) ? assignments[key] : [assignments[key]];
+                dayAssignments.splice(index, 1);
+                
+                if (dayAssignments.length === 0) {
+                    delete assignments[key];
+                } else {
+                    assignments[key] = dayAssignments;
+                }
+                
+                saveData();
+                renderCalendar();
+                closeModal();
+                showAlert('Assignment deleted successfully!', 'success');
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('assignmentModal').style.display = 'none';
+            currentEditingCell = null;
+        }
+
+        // Show alert
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        // Month navigation
+        function previousMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all assignments? This cannot be undone.')) {
+                assignments = {};
+                saveData();
+                renderCalendar();
+                showAlert('All data cleared successfully!', 'success');
+            }
+        }
+
+        // Export data
+        function exportData() {
+            const dataStr = JSON.stringify(assignments, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `site-planner-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            showAlert('Schedule exported successfully!', 'success');
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('assignmentModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Initialize
+        loadData();
+        renderCalendar();
+    </script>
+</body>
+</html>
