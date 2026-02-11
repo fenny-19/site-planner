@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>GitHub Copilot</Author>
+  <LastAuthor>GitHub Copilot</LastAuthor>
+  <Created>2026-02-11T00:00:00Z</Created>
+  <Company></Company>
+  <Version>16.00</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <ProtectStructure>false</ProtectStructure>
+  <ProtectWindows>false</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" ss:Size="11"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="sHeader">
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#DCE6F1" ss:Pattern="Solid"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="sRole">
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#E2EFDA" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="sShiftRegular">
+   <Interior ss:Color="#3498DB" ss:Pattern="Solid"/>
+   <Font ss:Color="#FFFFFF"/>
+  </Style>
+  <Style ss:ID="sShiftOT">
+   <Interior ss:Color="#E67E22" ss:Pattern="Solid"/>
+   <Font ss:Color="#FFFFFF"/>
+  </Style>
+  <Style ss:ID="sShiftNight">
+   <Interior ss:Color="#8E44AD" ss:Pattern="Solid"/>
+   <Font ss:Color="#FFFFFF"/>
+  </Style>
+  <Style ss:ID="sRest">
+   <Interior ss:Color="#E74C3C" ss:Pattern="Solid"/>
+   <Font ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Alignment ss:Horizontal="Center"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Settings">
+  <Table>
+   <Row>
+    <Cell><Data ss:Type="String">Shift Options</Data></Cell>
+   </Row>
+   <Row><Cell><Data ss:Type="String">Regular</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">Overtime</Data></Cell></Row>
+   <Row><Cell><Data ss:Type="String">Night</Data></Cell></Row>
+  </Table>
+ </Worksheet>
+ <Worksheet ss:Name="Mar-2026">
+  <Table ss:ExpandedColumnCount="65" ss:ExpandedRowCount="40" x:FullColumns="1" x:FullRows="1">
+   <Column ss:AutoFitWidth="1" ss:Width="120"/>
+   <Column ss:AutoFitWidth="1" ss:Width="160"/>
+   <!-- 31 days * 2 columns (Site, Shift) -->
+   <!-- Header Row -->
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">Role</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">Technician</Data></Cell>
+    <!-- Days -->
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">1-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">1-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">2-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">2-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">3-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">3-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">4-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">4-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">5-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">5-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">6-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">6-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">7-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">7-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">8-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">8-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">9-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">9-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">10-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">10-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">11-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">11-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">12-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">12-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">13-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">13-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">14-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">14-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">15-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">15-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">16-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">16-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">17-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">17-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">18-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">18-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">19-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">19-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">20-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">20-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">21-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">21-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">22-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">22-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">23-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">23-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">24-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">24-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">25-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">25-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">26-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">26-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">27-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">27-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">28-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">28-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">29-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">29-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">30-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">30-Mar Shift</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">31-Mar Site</Data></Cell>
+    <Cell ss:StyleID="sHeader"><Data ss:Type="String">31-Mar Shift</Data></Cell>
+   </Row>
+   <!-- Data rows: Supervisor, Engineers, Electrical Technicians -->
+   <!-- Supervisor -->
+   <Row>
+    <Cell ss:StyleID="sRole"><Data ss:Type="String">Supervisor</Data></Cell>
+    <Cell><Data ss:Type="String">Kulwinder Singh</Data></Cell>
+   </Row>
+   <!-- Engineers -->
+   <Row>
+    <Cell ss:StyleID="sRole"><Data ss:Type="String">Engineer</Data></Cell>
+    <Cell><Data ss:Type="String">Muthu</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="sRole"><Data ss:Type="String">Engineer</Data></Cell>
+    <Cell><Data ss:Type="String">Ghanshyam</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="sRole"><Data ss:Type="String">Engineer</Data></Cell>
+    <Cell><Data ss:Type="String">Akshay</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="sRole"><Data ss:Type="String">Engineer</Data></Cell>
+    <Cell><Data ss:Type="String">Manish Pandey</Data></Cell>
+   </Row>
+   <!-- Electrical Technicians -->
+   <Row>
+    <Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data></Cell>
+    <Cell><Data ss:Type="String">Shanmugam</Data></Cell>
+   </Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Anandu</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Anoop</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Manoj</Data><Cell><Data ss:Type="String"></Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Surender</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Samal</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Vijay Yadav</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Amit</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Alok</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Kalandi</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Velmurugan</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Santanu</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Abhilash</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Ramesh</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Tilak</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Akash</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Darshan Paji</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Ganesh Veerkoti</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Ganesh Vijay</Data></Cell></Row>
+   <Row><Cell ss:StyleID="sRole"><Data ss:Type="String">Electrical Technician</Data><Cell><Data ss:Type="String">Naresh</Data></Cell></Row>
+  </Table>
+  <!-- Data validations for Shift columns -->
+  <DataValidations>
+   <DataValidation ss:Type="List" ss:AllowBlank="1" ss:ShowInputMessage="1" ss:ShowErrorMessage="1">
+    <Formula1>Settings!$A$2:$A$4</Formula1>
+   </DataValidation>
+  </DataValidations>
+ </Worksheet>
+</Workbook>
